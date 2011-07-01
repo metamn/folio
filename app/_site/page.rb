@@ -5,13 +5,8 @@ require './content.rb'
 
 # Creating Jekyll Pages from Dropbox data
 #
-class Page
-  
-  include Utils
-  
-  # Folders used by Jekyll
-  JEKYLL_FOLDERS = ['_site', '_includes', '_posts', '_layouts', '_plugins', 'images', 'assets']
-  
+class Page  
+  include Utils  
   
   # Syncing Dropbox data with Jekyll
   #
@@ -33,7 +28,7 @@ class Page
   # Returns an array of page names
   def jekyll
     pattern = File.join('**')
-    ret = Dir.glob(pattern).map! {|f| (File.directory?(f) && !JEKYLL_FOLDERS.include?(f)) ? "#{f}" : "" }.uniq
+    ret = Dir.glob(pattern).map! {|f| (File.directory?(f) && !jekyll_folders?(f)) ? "#{f}" : "" }.uniq
     ret.delete("")
     ret
   end

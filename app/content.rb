@@ -4,6 +4,7 @@ class Content
 
   # Generate menu items from pages
   # Menu items are put in a Jekyll partial
+  # An additional item "Home" is added
   #  
   # items - an array of page names
   #
@@ -11,8 +12,8 @@ class Content
   def menu(items)
     f = File.new("_includes/menu.html", 'w+')
     f.puts "<ul class='inline-list'>"
-    f.puts "  <li><a href='/'>Home</a></li>"
-    items.map {|i| f.puts " <li><a href='/#{i}'>#{i}</a></li>"}
+    f.puts "  <li><a href='/' title='Home'>Home</a></li>"
+    items.map {|i| f.puts "  <li><a href='/#{i}' title='#{i.titleize}'>#{i.titleize}</a></li>"}
     f.puts "</ul>"
     f.close
   end
@@ -25,7 +26,7 @@ class Content
     f = File.new("#{p}/index.html", 'w+')
     f.puts "---"
     f.puts "layout: page"
-    f.puts "title: #{p}"
+    f.puts "title: #{p.titleize}"
     f.puts "---"
     
     self.copy f, "images/#{p}.txt"
