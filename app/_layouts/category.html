@@ -1,0 +1,18 @@
+---
+layout: page
+---
+
+<div id="{{ page.category }}" class="category">
+  <div id="items">   
+    {% assign total = site.categories[page.category].size %}
+    <h1 class="large block">
+      <div class="circle"><span class="number">{{ total }}</span></div>
+      <div class="title">{{ page.category | capitalize }}</div>
+    </h1> 
+    <div id="items">
+      {% for item in site.categories[page.category] %}
+        {% include item.html %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

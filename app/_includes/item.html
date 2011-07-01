@@ -1,0 +1,30 @@
+<div id="item" class="block">
+  <div class="col-1">
+    <a href="{{ item.url }}" title="{{ item.title }}" class="white">
+      <h2>{{ item.title }}</h2>
+    </a>
+    <div class="triangle triangle-top"></div>
+    <div id="excerpt">
+      {% if item.excerpt.size > 0 %}
+        {{ item.excerpt }}
+      {% else %}
+        {{ item.content }}
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-2">
+    {% if item.images.size > 0 %}
+      <table class="inner">
+        <tr>
+          {% for image in item.images %}
+            <td>
+              <a href="{{ item.url }}" title="{{ item.title }}">
+                <img class="{{ page.category }}" src="{{ image.url }}" />
+              </a>
+            </td>
+          {% endfor %}
+        </tr>
+      </table>
+    {% endif %}    
+  </div>
+</div>

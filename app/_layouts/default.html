@@ -1,0 +1,45 @@
+---
+---
+<html>
+  <head>
+    <title>
+      {% if page.title != _blank %}
+        {{ page.title | capitalize }} - {{ site.name }}
+      {% else %}
+        {% if site.strapline != _blank %}
+          {{ site.strapline }} - 
+        {% endif %}
+        {{ site.name }}
+      {% endif %}
+    </title>
+    
+    
+    <link href="/assets/base.css" media="all" type="text/css" rel="stylesheet">    
+    <link href="/assets/layout.css" media="all" type="text/css" rel="stylesheet">
+    <link href="/assets/theme.css" media="all" type="text/css" rel="stylesheet">    
+    <link href="/assets/mobile.css" charset="utf-8" media="screen and (max-width: 480px)" rel="stylesheet" type="text/css" />
+    <link href="/assets/tablet.css" charset="utf-8" media="screen and (min-width: 481px) and (max-width: 1024px)" rel="stylesheet" type="text/css" />
+	  <link href="/assets/wide.css" charset="utf-8" media="screen and (min-width: 1025px) and (max-width: 1399px)" rel="stylesheet" type="text/css" />
+    <link href="/assets/large.css" charset="utf-8" media="screen and (min-width: 1400px)" rel="stylesheet" type="text/css" />        
+    
+    <!--[if IE]>
+    <link href="/assets/ie.css" media="all" type="text/css" rel="stylesheet">  
+	  <![endif]-->
+        
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/jquery.init.js"></script>
+    
+    <!--<script type="text/javascript" src="/assets/jquery.grid.js"></script>-->
+  </head>
+  
+  <body>
+    {% include header.html %}
+    <div id="content" class="block">
+      <div class="container">
+        {{ content }}
+      </div>
+    </div>
+    {% include footer.html %}
+  </body>
+</html>
+

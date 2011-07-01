@@ -1,0 +1,29 @@
+<div id="sidebar"  class="col-1">
+  <div id="inside">
+    <h3>How It Works?</h3>
+    <div id="items">
+      <ul>
+        <li><a href="/nope">Starting up</a></li>
+        <li><a href="/nope">The School</a></li>
+        <li><a href="/teachers">Teachers</a></li>
+        <li><a href="/nope">Classes</a></li>
+        <li><a href="/nope">Students</a></li>    
+        <li><a href="/nope">Technical Requirements</a></li>    
+      </ul>
+    </div>
+    
+    <h3>What You'll Learn?</h3>
+    <ul>
+      {% for l in site.categories.follow-your-interests reversed %}
+      <li><a href="/nope">{{ l.short }}</a></li>
+      {% endfor %}
+    </ul>
+    
+    <h3>What You'll Get?</h3>
+    <ul>
+      {% for l in site.categories.certificates reversed %}
+      <li><a href="/nope">{{ l.short }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
