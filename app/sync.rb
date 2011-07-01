@@ -1,4 +1,8 @@
 require 'rubygems'
 require './page.rb'
 
-Page.new.sync
+pages = Page.new
+pages.sync
+
+puts "menu: #{pages.dropbox}"
+Content.new.menu pages.dropbox
