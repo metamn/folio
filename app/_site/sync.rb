@@ -61,6 +61,7 @@ def create_page(page_name)
   
   File.open("images/#{page_name}.txt").readlines.each do |line|
     f.write line
+    f.write '<br/>'
   end
   f.close
 end

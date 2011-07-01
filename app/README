@@ -1,0 +1,11 @@
+= Pages
+
+- Pages are created from .txt files in the main Dropbox folder
+- These .txt files can contain any syntax
+- New lines of .txt are replaced with '<br/'>
+
+
+= Menu
+
+- Menu items are created automatically from Pages
+
