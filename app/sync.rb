@@ -39,7 +39,7 @@ end
 # Returns an array of pages
 def get_pages_from_dropbox
   ret = []
-  pattern = File.join('**', 'images', '*.txt')
+  pattern = File.join('images', '*.txt')
   Dir.glob(pattern).each do |f|
     ret << "#{file_name_to_page_name f}"
   end
@@ -52,7 +52,17 @@ end
 # page_name - the name of page to be created
 def create_page(page_name)
   Dir.mkdir page_name unless File.exists? page_name
-  File.new("#{page_name}/index.html", 'w+').close
+  f = File.new("#{page_name}/index.html", 'w+')
+  str = "---\n"
+  str += "layout: page\n"
+  str += "title: #{page_name}\n"
+  str += "---\n"
+  f.write str
+  
+  File.open("images/#{page_name}.txt").readlines.each do |line|
+    f.write line
+  end
+  f.close
 end
 
 # Delete a single Page
@@ -60,13 +70,14 @@ end
 # page_name - the name of the page to be deleted
 def delete_page(page_name)
   puts "Deleting page #{page_name}"
-  puts FileUtils.rm_rf "#{page_name}"
+  FileUtils.rm_rf "#{page_name}"
 end
 
 
 # Pages
 #
-# Creating Jekyll pages from source directory
+# All pages will be completely regenerated
+# Pages removed from Dropbox will be removed 
 def pages
   current = get_pages_from_site
   dropbox = get_pages_from_dropbox
