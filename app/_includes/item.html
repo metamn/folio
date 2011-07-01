@@ -1,9 +1,8 @@
 <div id="item" class="block">
   <div class="col-1">
-    <a href="{{ item.url }}" title="{{ item.title }}" class="white">
+    <a href="{{ item.url }}" title="{{ item.title }}" >
       <h2>{{ item.title }}</h2>
     </a>
-    <div class="triangle triangle-top"></div>
     <div id="excerpt">
       {% if item.excerpt.size > 0 %}
         {{ item.excerpt }}

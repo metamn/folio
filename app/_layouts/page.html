@@ -2,10 +2,10 @@
 layout: default
 ---
 
-<div id="features" class="page">
+<div id="{{ page.name }}" class="page">
   {% include sidebar.html %}
   
-  <div id="main" class="col-2">
+  <div id="main">
     {{ content }}
   </div>
 </div>
