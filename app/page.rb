@@ -1,8 +1,3 @@
-require 'fileutils'
-require './utils.rb'
-require './content.rb'
-
-
 # Creating Jekyll Pages from Dropbox data
 #
 class Page  

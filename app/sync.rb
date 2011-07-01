@@ -1,4 +1,7 @@
 require 'rubygems'
+require 'fileutils'
+require './utils.rb'
+require './content.rb'
 require './page.rb'
 
 pages = Page.new
