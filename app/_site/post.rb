@@ -2,4 +2,7 @@
 #
 class Post
   
+  def initialize(dir = 'images')
+    puts "#{dir}"
+  end
 end

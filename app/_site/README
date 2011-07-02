@@ -10,3 +10,13 @@
 
 - Menu items are created automatically from Pages
 - 'Home' as first menu item is automatically added
+
+= Posts
+
+- Every portfolio item (image, video) has its own post
+- Categories / Directories can be nested
+- Each category can have a descriptor .txt file
+- Each image can have an additional descriptor file
+- Lower level descriptors can inherit or overwrite previous descriptions
+
+

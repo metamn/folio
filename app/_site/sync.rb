@@ -9,3 +9,7 @@ pages.sync
 
 puts "menu: #{pages.dropbox}"
 Content.new.menu pages.dropbox
+
+
+posts = Post.new
+posts.sync

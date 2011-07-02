@@ -25,10 +25,35 @@ module Utils
   #
   # Example
   #   images/about.txt #=> about
+  #   about.txt #=> about
   #
   # Returns a string
   def file_name_to_page_name(file)
     file.gsub! /\s/, '-'
-    file.split('/')[1].split('.')[0]
+    file.gsub! /_/, '-'
+    file.reverse.split('.')[1].split('/')[0].reverse
+  end
+  
+  # Remove 'images/' prefix from filename
+  #
+  # file - the file name
+  #
+  # Returns a string
+  def remove_prefix(file)
+    file.split('images/')[1]
+  end
+  
+  # Creates categories from folders
+  #
+  # file - the file name
+  #
+  # Example
+  #   /dir1/dir12/avil.jpg #=> [dir1, dir2] 
+  #
+  # Returns and array of strings
+  def folder_categories(file)
+    all = file.split('.')[0].split('/') 
+    all.delete all.last
+    all
   end
 end
