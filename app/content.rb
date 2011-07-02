@@ -10,9 +10,13 @@ class Content
   # file - the file name with all folders
   #
   # Metadata is added from directory and file descriptors, if any
-  # If there is no metadata the post date will be the current date
+  # If there is no metadata the post will get default data
   def post(file)
-    meta = self.meta(file) 
+    metadata = self.meta(file)
+    
+    f = File.new "_posts/#{metadata['date'].to_s}-#{file_name_to_page_name file}.html", 'w+'
+    f.puts YAML.dump metadata
+    f.close
   end
 
   # Generate menu items from pages
@@ -52,14 +56,58 @@ class Content
     #
     # file - the file name with all folders
     #
-    # Inheritance follows hierarchy: folder/subfolder/file-descriptor
+    # Inheritance/merging follows hierarchy: folder/subfolder/file-descriptor
     #
-    # Returns a YAML file
+    # Steps:
+    # 1. the default meta data is created
+    # 2. the descriptor files are merged into default overwriting them
+    #
+    # Returns a YAML hash
     def meta(file)
-      puts file            
-      puts meta_files file
-      puts meta_file file
-      puts
+      ret = meta_default folder_categories file 
+      
+      yamls = meta_files(file) + meta_file(file)
+      yamls.flatten.each do |y| 
+        data = YAML.load_file("images/#{y}")
+        ret = meta_merge ret, data unless data == false
+      end
+      
+      ret
+    end
+    
+    
+    # Merging multiple metadatas
+    #
+    # old_meta - the current metadata
+    # new_meta - the new metadata to add
+    #
+    # Categories are added
+    # Dates are overwritten
+    # 
+    # Returns YAML
+    def meta_merge(old_meta, new_meta)
+      old_meta.merge(new_meta) { |key, oldval, newval| 
+        case key
+        when "categories"
+          oldval + newval 
+        else
+          newval
+        end  
+      }
+    end
+    
+    
+    # Creating default metadata for posts
+    #
+    # categories - an array of categories derived from folder names
+    #
+    # Default post time will be the current time
+    #
+    # Returns a YAML
+    def meta_default(categories)
+      str = "date: #{Time.now.to_s.split(' ')[0]}\n"
+      str += "categories: [#{categories.join(', ')}]"
+      YAML.load str
     end
     
     # Getting the meta descriptor file for a single file
