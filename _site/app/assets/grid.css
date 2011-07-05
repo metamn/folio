@@ -1,0 +1,77 @@
+.container {
+  width: 80%;
+  max-width: 80em;  /* 80x16px=1280px */
+  margin: 0 auto;
+}
+
+
+
+/* Startpage 
+*/
+
+
+.index #intro .col-1 {
+  width: 55%;
+  margin-right: 5%;
+}
+.index #intro .col-2 {
+  width: 40%;
+}
+
+#item.product, .subscribe-twitter {
+  width: 20%;
+  margin-right: 5%;
+  float: left;
+}
+
+
+#ecosystem .col-1 {
+  width: 55%;
+  margin-right: 5%;  
+} 
+#ecosystem .col-2 {
+  width: 40%; 
+} 
+
+#follow .col {
+  width: 40%;
+  margin-right: 10%;
+  float: left;
+}
+#follow .counter {
+  position: relative;
+  margin-left: 5em;
+  top: -2.5em;
+}
+
+
+
+/* Page
+*/
+
+#info .col-1 {
+  width: 55%;
+  margin-right: 5%;
+}
+#info .col-2 {  
+  width: 40%; 
+}
+
+
+/* Collections
+*/
+
+.collection .col-1 {
+  width: 63%;
+  margin-right: 3%;
+}
+.collection .col-2 {
+  width: 33%;
+}
+.collection #items #item {
+  width: 28%;
+  margin: 0 5% 1.25em 0;
+  float: left;
+  margin-bottom: 3.75em;
+}
+

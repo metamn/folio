@@ -18,5 +18,5 @@
 - Each category can have a descriptor .txt file
 - Each image can have an additional descriptor file
 - Lower level descriptors can inherit or overwrite previous descriptions
-
+- If there are no descriptors at all a post is created with the current date and categories derived from folder names
 

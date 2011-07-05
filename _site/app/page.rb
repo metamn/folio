@@ -3,7 +3,7 @@
 class Page  
   include Utils  
   
-  # Syncing Dropbox pages with Jekyll
+  # Syncing Dropbox data with Jekyll
   #
   # Pages removed from Dropbox will be removed from Jekyll
   #
