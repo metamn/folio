@@ -1,0 +1,14 @@
+---
+layout: page
+---
+
+<div id="{{ page.category }}" class="category">
+  <div id="items">   
+    <h1>{{ page.category | capitalize }}</h1> 
+    <div id="items">
+      {% for item in site.categories[page.category] %}
+        {% include item.html %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
