@@ -4,6 +4,10 @@ require 'yaml'
 #
 class Content
   include Utils
+  
+  def initialize(dir)
+    @dir = dir
+  end
 
   # Generate post for Jekyll
   #
@@ -14,7 +18,7 @@ class Content
   def post(file)
     metadata = self.meta(file)
     
-    f = File.new "_posts/#{metadata['date'].to_s}-#{file_name_to_page_name file}.html", 'w+'
+    f = File.new "#{@dir}/_posts/#{metadata['date'].to_s}-#{file_name_to_page_name file}.html", 'w+'
     f.puts YAML.dump metadata
     f.close
   end
@@ -27,7 +31,7 @@ class Content
   #
   # Returns '_includes/menu.html'
   def menu(items)
-    f = File.new("_includes/menu.html", 'w+')
+    f = File.new("#{@dir}/_includes/menu.html", 'w+')
     f.puts "<ul class='inline-list'>"
     f.puts "  <li><a href='/' title='Home'>Home</a></li>"
     items.map {|i| f.puts "  <li><a href='/#{i}' title='#{i.titleize}'>#{i.titleize}</a></li>"}
@@ -40,13 +44,15 @@ class Content
   # p - page name
   #
   def page(p)
+    page_name = p.split('/')[1]
+    
     f = File.new("#{p}/index.html", 'w+')
     f.puts "---"
     f.puts "layout: page"
-    f.puts "title: #{p.titleize}"
+    f.puts "title: #{page_name.titleize}"
     f.puts "---"
     
-    self.copy f, "images/#{p}.txt"
+    self.copy f, "#{@dir}/images/#{page_name}.txt"
     f.close
   end
   
@@ -68,7 +74,7 @@ class Content
       
       yamls = meta_files(file) + meta_file(file)
       yamls.flatten.each do |y| 
-        data = YAML.load_file("images/#{y}")
+        data = YAML.load_file("#{@dir}/images/#{y}")
         ret = meta_merge ret, data unless data == false
       end
       
@@ -120,7 +126,7 @@ class Content
     #   dir1/dir11/index.png #=> ['dir1/dir11/index.txt']
     def meta_file(file)
       ret = []
-      ret << ["#{file.split('.')[0]}.txt"] if File.exists? "images/#{file.split('.')[0]}.txt"
+      ret << ["#{file.split('.')[0]}.txt"] if File.exists? "#{@dir}/images/#{file.split('.')[0]}.txt"
       ret
     end
     
@@ -147,7 +153,7 @@ class Content
       folders = folder_categories file
       folders.each_with_index do |folder, index|
         f = "#{folders.take(index+1).join('/')}/#{folder}.txt"
-        ret << f if File.exists? "images/#{f}"
+        ret << f if File.exists? "#{@dir}/images/#{f}"
       end
       ret
     end

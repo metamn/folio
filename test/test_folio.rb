@@ -48,7 +48,22 @@ class TestFolio < Test::Unit::TestCase
       assert Dir.exists? "#{@f.dir}/images"
     end
     
+    should "create the symlink for images only once" do
+      @f.symlink
+      assert !(Dir.exists? "#{@f.dir}/images/#{@f.dir}")
+    end
     
+    should "configure the new static site via _config.yml" do
+      @f.config
+      source = YAML::load_file "#{@f.dir}/images/config.txt"
+      dest = YAML::load_file "#{@f.dir}/_config.yml"
+      assert_equal source, dest
+    end
+    
+    should "generate pages" do
+      @f.pages
+      assert Dir.exists? "#{dropbox}/#{@dir}/about"
+    end
   end
 end
 

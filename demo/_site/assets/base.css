@@ -1,0 +1,475 @@
+/*
+# CSS Resets, Hacks, and Common Elements #
+
+* File name: [base.css](base.css )
+* This is a basic stylesheet to prepare/reset the browser and the HTML elements
+* Author: [Shopledge](http://shopledge.com "Shopledge")
+* License: MIT Licence. Copyright 2010 Shopledge www.shopledge.com
+
+---
+*/
+
+
+
+/* 
+## Reset and format all basic elements ##
+
+* CSS Reset by Eric Meyers
+* [Source](http://meyerweb.com/eric/tools/css/reset/ )
+* v2.0 | 20110126
+* License: none (public domain)
+
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+
+/* 
+## Hacks ##
+
+### Breaking long lines of text ###
+
+* Prevent unbroken strings from breaking the layout
+* [Source](http://stackoverflow.com/questions/320184/who-has-solved-the-long-word-breaks-my-div-problem-hint-not-stackoverflow )
+* add the **word-break** class to a paragraph to apply this hack
+
+*/
+p {
+  word-wrap: break-word;  
+}
+.word-break {
+  /* The following styles prevent unbroken strings from breaking the layout */
+  width: 100%; /* set to whatever width you need */
+  white-space: -moz-pre-wrap; /* Mozilla */
+  white-space: -hp-pre-wrap; /* HP printers */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: pre-wrap; /* CSS 2.1 */
+  white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+  word-wrap: break-word; /* IE */
+  -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
+}
+
+
+
+
+
+/* 
+## Lists ##
+
+* both `<ul>, <ol>, <dl>` items are indented in the same way
+* items are separated by a blank line
+* cascading lists identation is also supported
+
+*/
+
+
+ol {
+  list-style-type: decimal;  
+}
+ul {
+  list-style-type: disc;  
+}
+ol, ul {
+  margin-left: 2.5em;
+}
+ol ol, ol ul, ul ul, ul ol, dl, dl dl {
+  margin-top: 1.25em;
+}
+li, dd {
+  margin-bottom: 1.25em;
+}
+dd {
+  margin-left: 1.25em;
+}
+
+
+/* 
+## Tables ##
+
+* table header is bold
+* table rows are separated with a blank line
+* all cells are aligned to top  
+* all cells are padded
+* normal cells are indented related to table header
+* no borders were used
+
+*/
+
+table {
+  width: 100%;
+  margin-bottom: 5em;
+}
+td, th, tr {
+  vertical-align: top;
+  text-align: left;
+}
+th {
+  padding-left: 0;
+  font-weight: bold;
+}
+td {
+  padding: 1.25em 1.25em 0 1.25em;
+}
+
+
+
+/* 
+## Forms ##
+
+* select is left unstyled (it cannot be styled via CSS), in rest all elements are ready to use
+* input, select and textarea have equal width
+* input, select, textarea and buttons are padded and rounded equally
+* buttons have hover effect
+* some general rules of usage:
+  
+  * all text input fields must have a **.text** class associated
+  * all form buttons must have a **.button** class associated    
+  * a link can be styled to look like a button with the **.button** class 
+  * radio and checkbox values must be embedded into an `<ul>` list
+  * form buttons must be embedded into an inline `<ul>` list 
+  
+* form elements are aligned to the horizontal grid
+   
+*/
+
+input, textarea {
+  width: 95%;
+}
+select {
+  width: 99%;
+  height: 2.5em;
+}
+input, textarea, select, button, .button {
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: .55em;  
+}
+select {
+  padding-top: .4em;
+  padding-bottom: .4em;
+}
+input, textarea, button {
+  -webkit-appearance: none; /* Safari is trying to ignore CSS styling of form elements */
+}
+
+/*
+- Safari overwrites theme.css with these settings ...
+input, textarea {  
+  -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background: -moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color: #ededed;
+	
+	border: 1px solid #dcdcdc;
+	
+	color: #4c4c4c !important;	
+	text-decoration:none !important;
+	text-shadow: 1px 1px 0px #ffffff;	
+}
+input.button:hover, a.button:hover {
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background: -moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color: #dfdfdf;
+}
+input.text, input.password, textarea {
+  background: #fff;
+}
+*/
+
+
+fieldset {
+  border: 1px solid;
+  padding: 1.25em;
+}
+legend {
+  padding: 0 .625em;
+}
+form ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+form ul li {
+  margin-bottom: 0;
+}
+
+input.button {
+  width: auto;
+}
+input[type="radio"], input[type="checkbox"], input[type="file"] {
+  width: auto;
+}
+
+
+/* 
+## Typography ##
+
+* It is supposed that general typography rules will be set up using [Typograph](http://lamb.cc/typograph/ ) in 
+[layout.css](layout.css )
+* This section contains just small, additional alignments
+
+*/
+
+
+body { font-size:100%; line-height:1.25; }
+h1, h2, h3 { margin-top:0; margin-bottom:0; }
+h1 { font-size:1.5em; padding:1.45833em 0; }
+h2 { font-size:1.33333em; padding:1.25em 0; }
+h3 { font-size:1.16667em; padding:1.51785em 0; }
+
+
+/*
+### `<h4>, <h5>, <h6>` ###
+
+* They all have normal sizes like paragraphs
+* `<h4>` is small caps
+* `<h5>` is bold
+* `<h6>` is italic
+
+*/
+h4, h5, h6 { padding: 1.25em 0; }
+h4 { font-variant: small-caps; }
+h5 { font-weight: bold; }
+h6 { font-style: italic; }
+
+
+/*
+### `<p>` ###
+
+* After the first paragraph all the following paragraphs are separated with a blank line
+
+*/
+
+p + p {
+  margin-top: 1.25em;
+}
+
+
+/*
+### `<sub>, <sup>` ###
+
+* done
+
+### `<cite>, <acronym>, <abbr>, <pre>` ###
+
+* not styled, they've just been set to italic
+
+### `<blockquote>` ###
+
+* not styled, just the left margin set
+
+*/
+sup {
+  vertical-align: super;
+}
+sub {
+  vertical-align: sub;  
+}
+cite, acronym, abbr, pre {
+  font-style: italic;
+}
+blockquote {
+  margin: 1.25em;
+}
+em {
+  font-style: italic;
+}
+
+/* 
+## Images, Thumbs ##
+
+* Displaying thumbs is easy with the following structure:
+  
+      .thumb              # aligning to grid
+        #details          # padding, positioning, backgrounding, etc
+          #figure         # cropping, sizing etc
+            img
+          #figcaption     # not necessary but looks structured
+            blabla
+          
+* Guidelines for using thumbs / image grids on responsive layout
+  
+  * MAKE SURE the user submits correctly sized images !!!</li>
+  * Choose a grid which supports 6, 4, 3, 2, 1 images / row
+  * Avoid displaying 6 images / row. Do it only of the images are already scaled down
+  * Text / caption under image is breaking the layout / the height. Try putting the caption on top!   
+     
+*/
+.thumb {
+  overflow: hidden;  
+  float: left;
+  width: 0; /* just to make sure these will be overwritten in the layout.css*/
+  height: 0;
+}
+.thumb #details {
+  text-align: center;
+  padding: 1.25em;
+}
+.thumb #figure {  
+  overflow: hidden;  
+  height: 0; /* just to make sure these will be overwritten in the layout.css*/
+}
+.thumb img, .thumb object {
+  max-width: 100%;
+}
+.thumb #figcaption {
+  padding: 1.25em 0;
+}
+
+
+
+
+/* 
+## Commonly used classes // CSS Helpers ##
+
+* **.link**  - makes an element looking like a link. On hover the cursor will be a pointer
+* **.block**  - makes sure the element fills the all available space
+* **.left, .right** - floats left or right
+* **.alignright, .alignleft, .aligncenter** - aligns right, left or center
+* **.hidden** - hide an element
+* **ul.inline-list** - displays an `<ul>` inline (like a menu)
+* **.triangle** - ads an arrow like in the [Gadgetoman theme](http://gadgetoman.myshopify.com )
+* **.mobile** - hides an element in desktop mode (it's like .hidden)
+* **#grid** - inserts a visual grid with JQuery
+* **.col** - to float left grid columns
+
+  
+*/
+
+/* The visual grid */
+.grid {
+  position: absolute;
+  top: 0;
+  opacity: .1;
+  display: block;
+  z-index: -1;
+}
+#gridh .col {
+  border-bottom: 1px solid;
+  width: 118em;
+  height: 19px; /* 1.25em = 20px - 1px border */
+}
+#gridv .col {
+  border-right: 1px solid;
+  width: 10%; 
+  height: 250em;
+  float: left;
+}
+
+.col {
+  float: left;
+  overflow: hidden;
+  width: 100%;
+}
+.col img {
+  max-width: 100%;
+}
+
+.triangle {
+  border-style: solid;  
+  display: inline;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: relative;
+}
+.mobile {
+  display: none;
+}
+.link {
+  cursor: pointer;
+}
+.clear {
+  clear: both;
+}
+.block {
+  width: 100%;
+  float: left;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.alignright {
+  text-align: right;
+}
+.alignleft {
+  text-align: left;
+}
+.aligncenter {
+  text-align: center;
+}
+ul {
+  list-style-type: disc;
+}
+ul.inline-list {
+  display: block;
+  margin: 0;
+}
+ul.inline-list li {
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 0;
+}
+
+
+
+
+
+

@@ -4,10 +4,18 @@ class Post
   include Utils
   
   IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'tiff', 'gif']
+
+  # Initialize Post class
+  #
+  # dir - the output directory
+  #
+  # Returns @files an array of posts to be created
+  def initialize(dir)
+    @dir = dir
+    @files = files 
+  end
   
   # Getting directories and files for posts
-  #
-  # dir - the folder where data for posts sits
   #
   # Returns an array of dirs and filenames
   #
@@ -22,11 +30,15 @@ class Post
   #   dir1/dir11/flower.png
   #   dir1/dir11/light.png
   #
-  def initialize(dir = 'images')
-    @dropbox = Dir.glob File.join "#{dir}", '**', '**' # get all files
-    @dropbox -= Dir.glob File.join "#{dir}", '*.txt' # remove pages
-    @dropbox.reject! {|i| !i.include?('.')} # remove directory entries, just keep files
-    @dropbox.map! {|i| remove_prefix i}  # remove prefix
+  def files    
+    @files = Dir.glob File.join "#{@dir}/images", '**', '**' # get all files recursively from 'images'
+    @files -= Dir.glob File.join "#{@dir}/images", '*.txt' # remove pages
+    @files -= Dir.glob File.join "#{@dir}/images", '*.site' # remove config.site    
+    @files.reject! {|i| File.directory?(i)} # remove directories, keep just the files (ie 'dir1', 'dir1/dir11')
+    @files.reject! {|i| i.include?('.txt')} # remove descriptors
+    @files.map! {|i| remove_prefix i, "#{@dir}"}  # remove 'inu.ro/images/' prefix
+    
+    @files
   end
   
   # Syncing Dropbox posts with Jekyll
@@ -36,15 +48,15 @@ class Post
     puts "Removing all existing posts"
     delete
     
-    puts "New posts: #{@dropbox.size}"
-    @dropbox.map {|p| create p unless p.include? '.txt' } # descriptors will be skipped
+    puts "New posts: #{@files.size}"
+    @files.map {|p| create p } 
   end
   
   
   # Delete all existing posts
   #
   def delete
-    FileUtils.rm_rf '_posts/*'
+    FileUtils.rm_rf "#{@dir}/_posts/*"
   end
   
   # Create a post
@@ -52,7 +64,7 @@ class Post
   #
   def create(p)
     #puts "#{file_name_to_page_name p} -> #{folder_categories p}"
-    Content.new.post p
+    Content.new("#{@dir}").post p
   end
   
   

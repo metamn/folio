@@ -16,8 +16,17 @@ module Utils
   #
   # Returns boolean
   def jekyll_folders?(folder)
-    JEKYLL_FOLDERS.include? folder
-  end  
+    JEKYLL_FOLDERS.include? remove_output_folder folder
+  end
+  
+  # Remove output folder from file name
+  #
+  # f - file name with output folder
+  #
+  # Returns string
+  def remove_output_folder(f)
+    f.split('/')[1]
+  end   
   
   # Creates a page name from filename
   #
@@ -34,13 +43,14 @@ module Utils
     file.reverse.split('.')[1].split('/')[0].reverse
   end
   
-  # Remove 'images/' prefix from filename
+  # Remove 'inu.ro/images/' prefix from filename
   #
   # file - the file name
+  # output_dir - the output directory
   #
   # Returns a string
-  def remove_prefix(file)
-    file.split('images/')[1]
+  def remove_prefix(file, output_dir)
+    file.split("#{output_dir}/images/")[1]
   end
   
   # Creates categories from folders

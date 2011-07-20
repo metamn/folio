@@ -1,5 +1,7 @@
 require 'yaml'
 
+require './page'
+require './post'
 
 # Generate artist portfolio from Dropbox using Jekyll
 #
@@ -23,6 +25,8 @@ class Folio
     puts "Output directory: #{@dir}"
     
     load_config 'config.yml'
+    
+    @page = Page.new("#{@dir}") 
   end
   
   # Load configuration from config.yml
@@ -42,6 +46,10 @@ class Folio
     mkdir(@dir) unless Dir.exists? @dir
     skeleton
     symlink
+    config
+    pages
+    menus
+    posts
   end
   
   # Create the output directory
@@ -63,6 +71,42 @@ class Folio
     system("ln -s #{@dropbox}/#{@dir}/ #{@dir}/images") unless Dir.exists?("#{@dir}/images")
   end
   
+  # Configure Jekyll via _config.yml
+  # 
+  # The content of 'config.txt' from the Dropbox folder will be copied to '_config.yml' in Jekyll
+  def config
+    puts "Setting up Jekyll ..."
+    raise ArgumentError, no_jekyll_config_file unless File.exists? "#{@dropbox}/#{@dir}/config.site"
+    
+    system("cp #{@dropbox}/#{@dir}/config.site #{@dir}/_config.yml")
+  end
+  
+  # Generate Jekyll pages
+  #
+  # See more at page.rb
+  def pages
+    @page.sync
+  end  
+  
+  # Generate Jekyll menus
+  #
+  # See more at content.rb
+  def menus
+    Content.new("#{@dir}").menu @page.dropbox
+  end
+  
+  # Generate Jekyll posts
+  #
+  # See more at post.rb
+  def posts
+    Post.new("#{@dir}").sync
+  end
+  
+  
+  
+  #
+  # Error messages
+  #
   # Display a message how to use Folio
   def usage
     puts "Usage: folio url"
@@ -85,9 +129,16 @@ class Folio
     puts
     exit
   end
+  
+  # Display a message if config file not found
+  def no_jekyll_config_file
+    puts "can't find configuration file for Jekyll 'config.txt'"
+    puts
+    exit
+  end
 end
 
 
-#f = Folio.new ARGV
-#f.generate
+f = Folio.new ARGV
+f.generate
 
