@@ -1,0 +1,39 @@
+.container {
+  width: 90%;
+}
+
+.mobile {
+  display: block;
+}
+.desktop {
+  display: none !important;
+}
+
+
+
+
+/* Traditional */
+h1, h2, h3 { margin-top:0; margin-bottom:0; }
+h1 { font-size:1.75em; padding:1.51786em 0; }
+h2 { font-size:1.5em; padding:1.45833em 0; }
+h3 { font-size:1.33333em; padding:1.25em 0; }
+h4 {  font-size:1.16667em; padding:1.51785em 0; }
+
+p + p {
+  margin-top: .625em;
+}
+table {
+  margin-bottom: 1.25em;
+}
+
+
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+

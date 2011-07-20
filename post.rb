@@ -60,8 +60,6 @@ class Post
   end
   
   # Create a post
-  #
-  #
   def create(p)
     #puts "#{file_name_to_page_name p} -> #{folder_categories p}"
     Content.new("#{@dir}").post p

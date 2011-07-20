@@ -42,13 +42,16 @@ class Folio
   #
   # - Create the output directory
   # - Copy skeleton to output directory
+  # - Symlink Dropbox folder to /images
+  # - Configure Jekyll
+  # - Generate pages, menus, posts
   def generate
     mkdir(@dir) unless Dir.exists? @dir
     skeleton
     symlink
     config
     pages
-    menus
+    menu
     posts
   end
   
@@ -91,7 +94,7 @@ class Folio
   # Generate Jekyll menus
   #
   # See more at content.rb
-  def menus
+  def menu
     Content.new("#{@dir}").menu @page.dropbox
   end
   

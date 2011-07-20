@@ -55,14 +55,26 @@ class TestFolio < Test::Unit::TestCase
     
     should "configure the new static site via _config.yml" do
       @f.config
-      source = YAML::load_file "#{@f.dir}/images/config.txt"
+      source = YAML::load_file "#{@f.dir}/images/config.site"
       dest = YAML::load_file "#{@f.dir}/_config.yml"
       assert_equal source, dest
     end
     
     should "generate pages" do
       @f.pages
-      assert Dir.exists? "#{dropbox}/#{@dir}/about"
+      assert Dir.exists? "#{@f.dir}/about"
+    end
+    
+    should "generate menu" do
+      before = File.open("#{@f.dir}/_includes/menu.html", 'r').size
+      @f.menu
+      assert File.open("#{@f.dir}/_includes/menu.html", 'r').size > before
+    end
+    
+    should "generate posts" do
+      before = Dir.entries("#{@f.dir}/_posts").size
+      @f.posts
+      assert Dir.entries("#{@f.dir}/_posts").size > before
     end
   end
 end
