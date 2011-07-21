@@ -1,5 +1,3 @@
-require 'yaml'
-
 require './page'
 require './post'
 
@@ -12,6 +10,8 @@ require './post'
 #   folio inu.ro #=> /inu.ro will contain the Jekyll site generated
 #
 class Folio
+
+  include Utils
   
   attr_reader :dir, :config, :dropbox
   
@@ -24,17 +24,16 @@ class Folio
     @dir = args[0]
     puts "Output directory: #{@dir}"
     
-    load_config 'config.yml'
+    load_config
     
-    @page = Page.new("#{@dir}") 
+    @page = Page.new("#{@dir}", @config['page_extension']) 
   end
   
-  # Load configuration from config.yml
-  def load_config(file)
-    raise SystemExit, no_config_file unless File.exists? file
-    
-    @config = YAML::load_file 'config.yml'
+  # Loading config file and setting up variables
+  def load_config
+    @config = load_yaml 'config.yml'
     @dropbox = @config['dropbox_folder']
+    @config_file = @config['config_file']
     puts "Configuration loaded."
   end
   
@@ -79,9 +78,9 @@ class Folio
   # The content of 'config.txt' from the Dropbox folder will be copied to '_config.yml' in Jekyll
   def config
     puts "Setting up Jekyll ..."
-    raise ArgumentError, no_jekyll_config_file unless File.exists? "#{@dropbox}/#{@dir}/config.site"
+    raise ArgumentError, no_jekyll_config_file unless File.exists? "#{@dropbox}/#{@dir}/#{@config_file}"
     
-    system("cp #{@dropbox}/#{@dir}/config.site #{@dir}/_config.yml")
+    system("cp #{@dropbox}/#{@dir}/#{@config_file} #{@dir}/_config.yml")
   end
   
   # Generate Jekyll pages
@@ -95,7 +94,8 @@ class Folio
   #
   # See more at content.rb
   def menu
-    Content.new("#{@dir}").menu @page.dropbox
+    puts "Creating menu ..."
+    Content.new("#{@dir}", "#{@extension}").menu @page.dropbox
   end
   
   # Generate Jekyll posts
@@ -125,17 +125,10 @@ class Folio
     puts
     exit
   end
-  
-  # Display a message if config file not found
-  def no_config_file
-    puts "can't find configuration file 'config.yml'"
-    puts
-    exit
-  end
-  
+    
   # Display a message if config file not found
   def no_jekyll_config_file
-    puts "can't find configuration file for Jekyll 'config.txt'"
+    puts "can't find configuration file for Jekyll '#{@config_file}'"
     puts
     exit
   end

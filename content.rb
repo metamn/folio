@@ -4,9 +4,12 @@ require 'yaml'
 #
 class Content
   include Utils
-  
-  def initialize(dir)
+
+  # Initialize the Content generator 
+  # extension - the file extension describing the page  
+  def initialize(dir, extension)
     @dir = dir
+    @extension = extension
   end
 
   # Generate post for Jekyll
@@ -52,7 +55,7 @@ class Content
     f.puts "title: #{page_name.titleize}"
     f.puts "---"
     
-    self.copy f, "#{@dir}/images/#{page_name}.txt"
+    self.copy f, "#{@dir}/images/#{page_name}.#{@extension}"
     f.close
   end
   

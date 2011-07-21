@@ -9,6 +9,16 @@ end
 module Utils
   # Folders used by Jekyll
   JEKYLL_FOLDERS = ['_site', '_includes', '_posts', '_layouts', '_plugins', 'images', 'assets']
+ 
+  # Load config file
+  #
+  # file  - the YAML file to load
+  #
+  # Returns the content of the YAML file
+  def load_yaml(file)
+    raise SystemExit, no_config_file(file) unless File.exists? file    
+    @config = YAML::load_file file    
+  end
   
   # Checking if a folder belongs to Jekyll 
   # 
@@ -22,6 +32,9 @@ module Utils
   # Remove output folder from file name
   #
   # f - file name with output folder
+  #
+  # Example:
+  #   "inu.ro/about" => "about"
   #
   # Returns string
   def remove_output_folder(f)
@@ -66,4 +79,17 @@ module Utils
     all.delete all.last
     all
   end
+  
+  
+  # Error messages
+  #
+  # Display a message if config file not found
+  #
+  # file - the file not found
+  def no_config_file(file)
+    puts "can't find configuration file '#{file}'"
+    puts
+    exit
+  end
+  
 end

@@ -5,18 +5,26 @@ require './content'
 # Creating Jekyll Pages from Dropbox data
 #
 class Page  
-  include Utils  
+  include Utils
   
-  def initialize(dir)
+  attr_reader :dir  
+  
+  # Initialize Page generator
+  #
+  # dir - the output directory
+  # page_extension - the extension of files describing pages
+  #
+  # Example:
+  #   Page.new 'inu.ro', 'page'
+  def initialize(dir, page_extension)
     @dir = dir
-    @content = Content.new dir
+    @extension = page_extension
   end
   
   
   # Syncing Dropbox pages with Jekyll
   #
   # Pages removed from Dropbox will be removed from Jekyll
-  #
   # All Pages from Dropbox will be regenerated in Jekyll
   def sync
     puts "Current pages: #{jekyll.join(', ')}"
@@ -33,7 +41,7 @@ class Page
   # Returns an array of page names
   def jekyll
     pattern = File.join("#{@dir}", '**')
-    ret = Dir.glob(pattern).map! {|f| (File.directory?(f) && !jekyll_folders?(f)) ? "#{f}" : "" }.compact.uniq
+    ret = Dir.glob(pattern).map! {|f| (File.directory?(f) && !jekyll_folders?(f)) ? "#{remove_output_folder f}" : "" }.compact.uniq
     ret.delete("")
     ret
   end
@@ -42,7 +50,7 @@ class Page
   #
   # Returns an array of page names
   def dropbox
-    pattern = File.join("#{@dir}/images", '*.txt')
+    pattern = File.join("#{@dir}/images", "*.#{@extension}")
     Dir.glob(pattern).map {|f| "#{file_name_to_page_name f}" }.compact
   end
   
@@ -60,7 +68,7 @@ class Page
   def create(p)
     puts "Creating page #{p}"
     Dir.mkdir p unless File.exists? p
-    @content.page p
+    Content.new("#{@dir}", @extension).page p
   end
   
 end

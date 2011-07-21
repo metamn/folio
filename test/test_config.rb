@@ -15,6 +15,14 @@ class TestFolio < Test::Unit::TestCase
       assert @y['dropbox_folder']
     end
     
+    should "have an entry for the config file" do
+      assert @y['config_file']
+    end
+    
+    should "have an entry for page files extension" do
+      assert @y['page_extension']
+    end
+    
   end
   
 end
