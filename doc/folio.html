@@ -1,0 +1,53 @@
+<ul>
+<li><b>Folio#initialize(args)</b><pre>Initialize Folio
+
+args - the command line arguments
+
+Sets the following variables:
+dir - the output directory
+config - configuration loaded from 'config.yml'
+
+Page is initialized here and used later in generating pages and menu
+
+Returns nothing</pre></li><li><b>Folio#load_config</b><pre>Loading config file and setting up variables
+Configuration is loaded once and sent later to other classes as a parameter
+
+Returns nothing</pre></li><li><b>Folio#generate</b><pre>Generate the Jekyll site 
+
+- Create the output directory
+- Copy skeleton to output directory
+- Symlink Dropbox folder to /images
+- Configure Jekyll
+- Generate pages, menus, posts
+
+Returns nothing</pre></li><li><b>Folio#mkdir(dir)</b><pre>Create the output directory
+
+dir - the output directory
+
+Returns nothing</pre></li><li><b>Folio#skeleton</b><pre>Copy skeleton to output directory
+
+Returns nothing</pre></li><li><b>Folio#symlink</b><pre>Symlink portfolio items from Dropbox into /images in output directory
+
+Returns nothing</pre></li><li><b>Folio#config</b><pre>Configure Jekyll via _config.yml
+
+The content of the config file from Dropbox will be copied to '_config.yml' in Jekyll
+
+Returns nothing</pre></li><li><b>Folio#pages</b><pre>Generate Jekyll pages
+
+See more at page.rb
+
+Returns nothing</pre></li><li><b>Folio#menu</b><pre>Generate Jekyll menus
+
+See more at content.rb
+
+Returns nothing</pre></li><li><b>Folio#posts</b><pre>Generate Jekyll posts
+
+See more at post.rb
+
+Returns nothing</pre></li><li><b>Folio#usage</b><pre>Display a message how to use Folio
+
+Returns nothing</pre></li><li><b>Folio#no_dropbox_folder</b><pre>Display a message if Dropbox source folder doesn't exists
+
+Returns nothing</pre></li><li><b>Folio#no_jekyll_config_file</b><pre>Display a message if config file not found
+
+Returns nothing</pre></li></ul>

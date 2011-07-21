@@ -1,0 +1,28 @@
+<ul>
+<li><b>Page#initialize(dir, page_extension)</b><pre>Initialize Page generator
+
+dir - the output directory
+page_extension - the extension of files describing pages
+
+Examples
+
+  Page.new 'inu.ro', 'page'
+
+Returns nothing</pre></li><li><b>Page#sync</b><pre>Syncing Dropbox pages with Jekyll
+
+Pages removed from Dropbox will be removed from Jekyll
+All Pages from Dropbox will be regenerated in Jekyll
+
+Returns nothing</pre></li><li><b>Page#jekyll</b><pre>Getting existing Pages from Jekyll
+
+Returns an array of page names</pre></li><li><b>Page#dropbox</b><pre>Getting Pages from Dropbox
+
+Returns an array of page names</pre></li><li><b>Page#delete(p)</b><pre>Delete Page from Jekyll
+
+p - the name of the page
+
+Returns nothing</pre></li><li><b>Page#create(p)</b><pre>Create a Jekyll Page
+
+p - the name of the page
+
+Returns nothing</pre></li></ul>

@@ -1,0 +1,40 @@
+<ul>
+</ul>
+<ul>
+<li><b>Utils#load_yaml(file)</b><pre>Folders used by Jekyll
+Load config file
+
+file  - the YAML file to load
+
+Returns the content of the YAML file</pre></li><li><b>Utils#jekyll_folders?(folder)</b><pre>Checking if a folder belongs to Jekyll 
+
+folder - the folder name
+
+Returns boolean</pre></li><li><b>Utils#remove_output_folder(f)</b><pre>Remove output folder from file name
+
+f - file name with output folder
+
+Example:
+  "inu.ro/about" => "about"
+
+Returns string</pre></li><li><b>Utils#file_name_to_page_name(file)</b><pre>Creates a page name from filename
+
+file - the filename
+
+Example
+  images/about.txt #=> about
+  about.txt #=> about
+
+Returns a string</pre></li><li><b>Utils#remove_prefix(file, output_dir)</b><pre>Remove 'inu.ro/images/' prefix from filename
+
+file - the file name
+output_dir - the output directory
+
+Returns a string</pre></li><li><b>Utils#folder_categories(file)</b><pre>Creates categories from folders
+
+file - the file name
+
+Example
+  /dir1/dir12/avil.jpg #=> [dir1, dir2] 
+
+Returns and array of strings</pre></li></ul>

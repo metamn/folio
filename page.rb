@@ -3,7 +3,6 @@ require './utils'
 require './content'
 
 # Creating Jekyll Pages from Dropbox data
-#
 class Page  
   include Utils
   
@@ -14,8 +13,11 @@ class Page
   # dir - the output directory
   # page_extension - the extension of files describing pages
   #
-  # Example:
+  # Examples
+  #
   #   Page.new 'inu.ro', 'page'
+  #
+  # Returns nothing
   def initialize(dir, page_extension)
     @dir = dir
     @extension = page_extension
@@ -26,6 +28,8 @@ class Page
   #
   # Pages removed from Dropbox will be removed from Jekyll
   # All Pages from Dropbox will be regenerated in Jekyll
+  #
+  # Returns nothing
   def sync
     puts "Current pages: #{jekyll.join(', ')}"
     puts "New pages: #{dropbox.join(', ')}"
@@ -57,6 +61,8 @@ class Page
   # Delete Page from Jekyll
   #
   # p - the name of the page
+  #
+  # Returns nothing
   def delete(p)
     puts "Deleting page #{p}"
     FileUtils.rm_rf "#{p}"
@@ -65,6 +71,8 @@ class Page
   # Create a Jekyll Page
   #
   # p - the name of the page
+  #
+  # Returns nothing
   def create(p)
     puts "Creating page #{p}"
     Dir.mkdir p unless File.exists? p

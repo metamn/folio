@@ -1,0 +1,56 @@
+<ul>
+<li><b>Content#menu(items)</b><pre>Generate menu items from pages
+Menu items are put in a Jekyll partial
+An additional item "Home" is added
+ 
+items - an array of page names
+
+Returns '_includes/menu.html'</pre></li><li><b>Content#meta(file)</b><pre>Get the post meta data
+
+file - the file name with all folders
+
+Inheritance/merging follows hierarchy: folder/subfolder/file-descriptor
+
+Steps:
+1. the default meta data is created
+2. the descriptor files are merged into default overwriting them
+
+Returns a YAML hash</pre></li><li><b>Content#meta_merge(old_meta, new_meta)</b><pre>Merging multiple metadatas
+
+old_meta - the current metadata
+new_meta - the new metadata to add
+
+Categories are added
+Dates are overwritten
+
+Returns YAML</pre></li><li><b>Content#meta_default(categories)</b><pre>Creating default metadata for posts
+
+categories - an array of categories derived from folder names
+
+Default post time will be the current time
+
+Returns a YAML</pre></li><li><b>Content#meta_file(file)</b><pre>Getting the meta descriptor file for a single file
+
+file - the name of the file with folders
+
+Returns the descriptor file as a single element array if exists or empty
+
+Example
+  dir1/dir11/index.png #=> ['dir1/dir11/index.txt']</pre></li><li><b>Content#meta_files(file)</b><pre>Getting the meta descriptor files for directories
+
+file - the file name with all folders
+
+Returns an array of descriptor files or empty
+
+Example
+  directory structure:
+    dir1/dir1.txt
+    dir1/dir11/index.png
+  file - dir1/dir11/index.png  #=> ['dir1/dir1.txt']
+
+Example 2
+  directory structure:
+    dir1/dir1.txt
+    dir1/dir11/index.png
+    dir1/dir11/dir11.txt
+  file - dir1/dir11/index.png  #=> ['dir1/dir1.txt', 'dir1/dir11/dir11.txt']</pre></li></ul>
